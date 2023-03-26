@@ -66,7 +66,6 @@ int flags, int width, int precision, int size)
 	char padd = ' ', extra_ch = 0;
 
 	UNUSED(size);
-
 	if ((flags & F_ZERO) && !(flags & F_MINUS))
 		padd = '0';
 	if (is_negative)
@@ -78,7 +77,6 @@ int flags, int width, int precision, int size)
 	return (write_num(ind, buffer, flags, width, precision,
 length, padd, extra_ch));
 }
-
 /**
  * write_num - Write a number using a bufffer
  * @ind: Index at which the number starts on the buffer
@@ -89,7 +87,6 @@ length, padd, extra_ch));
  * @length: Number length
  * @padd: Pading char
  * @extra_c: Extra char
- *
  * Return: Number of printed chars.
  */
 int write_num(int ind, char buffer[],
@@ -123,23 +120,20 @@ int length, char padd, char extra_c)
 		{
 			if (extra_c)
 				buffer[--ind] = extra_c;
-
 			return (write(1, &buffer[1], i - 1) + write(1, &buffer[ind], length));
 		}
 		else if (!(flags & F_MINUS) && padd == '0')/* extra char to left of padd */
 		{
 			if (extra_c)
 				buffer[--padd_start] = extra_c;
-			return (write(1, &buffer[padd_start], i - padd_start) +
+return (write(1, &buffer[padd_start], i - padd_start) +
 write(1, &buffer[ind], length - (1 - padd_start)));
 		}
 	}
 	if (extra_c)
 		buffer[--ind] = extra_c;
-	return (write(1, &buffer[ind]
-, length));
+	return (write(1, &buffer[ind], length));
 }
-
 /**
  * write_unsgnd - Writes an unsigned number
  * @is_negative: Number indicating if the num is negative
@@ -222,7 +216,6 @@ int width, int flags, char padd, char extra_c, int padd_start)
 		{
 			buffer[--ind] = 'x';
 			buffer[--ind] = '0';
-
 			if (extra_c)
 				buffer[--ind] = extra_c;
 			return (write(1, &buffer[ind], length) + write(1, &buffer[3], i - 3));
@@ -233,7 +226,6 @@ int width, int flags, char padd, char extra_c, int padd_start)
 			buffer[--ind] = '0';
 			if (extra_c)
 				buffer[--ind] = extra_c;
-
 			return (write(1, &buffer[3], i - 3) + write(1, &buffer[ind], length));
 		}
 		else if (!(flags & F_MINUS) && padd == '0')/* extra char to left of padd */
@@ -242,14 +234,12 @@ int width, int flags, char padd, char extra_c, int padd_start)
 				buffer[--padd_start] = extra_c;
 			buffer[1] = '0';
 			buffer[2] = 'x';
-
 			return (write(1, &buffer[padd_start], i - padd_start) +
 write(1, &buffer[ind], length - (1 - padd_start) - 2));
 		}
 	}
 	buffer[--ind] = 'x';
 	buffer[--ind] = '0';
-
 	if (extra_c)
 		buffer[--ind] = extra_c;
 	return (write(1, &buffer[ind],
